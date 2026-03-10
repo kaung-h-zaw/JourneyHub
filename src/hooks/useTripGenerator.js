@@ -26,7 +26,7 @@ export const useTripGenerator = () => {
         err?.message?.includes("Rate limit");
 
       const errorMessage = isRateLimit
-        ? "Our AI is taking a short break due to high demand. Please wait a few minutes and try again."
+        ? "Our AI is currently at capacity. Please wait a few minutes and click Try Again."
         : err.message || "Failed to build trip plan";
 
       setError(errorMessage);
