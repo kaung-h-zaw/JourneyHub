@@ -22,6 +22,16 @@ export const TripProvider = ({ children }) => {
     maxAgeMs: ONE_DAY_MS,
   });
 
+  const clearCurrentTrip = () => {
+    try {
+      window.localStorage.removeItem("currentTrip");
+    } catch (error) {
+      console.error("Error clearing current trip from localStorage:", error);
+    }
+
+    setCurrentTrip(null);
+  };
+
   const createTrip = (tripData) => {
     const newTrip = {
       id: generateId(),
@@ -51,7 +61,7 @@ export const TripProvider = ({ children }) => {
   const deleteTrip = (tripId) => {
     setTrips(trips.filter((t) => t.id !== tripId));
     if (currentTrip?.id === tripId) {
-      setCurrentTrip(null);
+      clearCurrentTrip();
     }
   };
 
@@ -85,6 +95,7 @@ export const TripProvider = ({ children }) => {
         trips,
         currentTrip,
         setCurrentTrip,
+        clearCurrentTrip,
         createTrip,
         saveTrip,
         deleteTrip,

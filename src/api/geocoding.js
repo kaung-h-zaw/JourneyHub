@@ -16,6 +16,8 @@ const DESTINATION_FALLBACKS = [
   { city: "Paris", country: "France", region: "Ile-de-France", type: "city" },
   { city: "Rome", country: "Italy", region: "Lazio", type: "city" },
   { city: "Bangkok", country: "Thailand", region: "Central Thailand", type: "city" },
+  { city: "Yangon", country: "Myanmar", region: "Yangon Region", type: "city" },
+  { city: "Mandalay", country: "Myanmar", region: "Mandalay Region", type: "city" },
   { city: "Singapore", country: "Singapore", region: "Singapore", type: "city" },
   { city: "New York", country: "United States", region: "New York", type: "city" },
   { city: "Los Angeles", country: "United States", region: "California", type: "city" },
@@ -23,6 +25,7 @@ const DESTINATION_FALLBACKS = [
   { city: "Australia", country: "Australia", region: "", type: "country" },
   { city: "Japan", country: "Japan", region: "", type: "country" },
   { city: "Thailand", country: "Thailand", region: "", type: "country" },
+  { city: "Myanmar", country: "Myanmar", region: "", type: "country" },
 ];
 
 const readGeocodeCache = () => {
@@ -139,8 +142,17 @@ export const searchDestinationSuggestions = async (query) => {
   try {
     const buildFallbackResults = (searchTerm) => {
       const normalizedTerm = searchTerm.toLowerCase();
+      const searchParts = normalizedTerm
+        .split(",")
+        .map((part) => part.trim())
+        .filter(Boolean);
 
       return DESTINATION_FALLBACKS.filter((entry) =>
+        searchParts.every((part) =>
+          [entry.city, entry.country, entry.region]
+            .filter(Boolean)
+            .some((value) => value.toLowerCase().includes(part)),
+        ) ||
         [entry.city, entry.country, entry.region]
           .filter(Boolean)
           .some((value) => value.toLowerCase().includes(normalizedTerm)),

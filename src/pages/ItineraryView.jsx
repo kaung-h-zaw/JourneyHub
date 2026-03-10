@@ -21,7 +21,7 @@ import {
 
 const ItineraryView = () => {
   const navigate = useNavigate();
-  const { currentTrip, saveTrip, updateItinerary, setCurrentTrip } =
+  const { currentTrip, saveTrip, updateItinerary, clearCurrentTrip } =
     useTripContext();
   const { loading, error, itinerary, generate } = useTripGenerator();
   const itineraryRef = useRef();
@@ -85,6 +85,16 @@ const ItineraryView = () => {
     return () => window.clearTimeout(timeoutId);
   }, [showSaveToast]);
 
+  const leavePlanPage = (path = "/") => {
+    clearCurrentTrip();
+    navigate(path);
+    window.setTimeout(() => {
+      if (window.location.pathname !== path) {
+        window.location.assign(path);
+      }
+    }, 80);
+  };
+
   if (!currentTrip) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -93,10 +103,7 @@ const ItineraryView = () => {
             No trip data found
           </p>
           <button
-            onClick={() => {
-              setCurrentTrip(null);
-              navigate("/");
-            }}
+            onClick={() => leavePlanPage("/")}
             className="rounded-2xl bg-[var(--accent)] px-6 py-3 text-white"
           >
             Create New Trip
@@ -119,10 +126,7 @@ const ItineraryView = () => {
         <div className="mb-6 overflow-hidden rounded-[28px] border border-[var(--border-soft)] bg-[var(--surface-strong)] shadow-[0_20px_60px_rgba(15,23,42,0.08)] sm:mb-8 sm:rounded-[32px]">
           <div className="px-4 py-6 sm:px-8 sm:py-8">
             <button
-              onClick={() => {
-                setCurrentTrip(null);
-                navigate("/");
-              }}
+              onClick={() => leavePlanPage("/")}
               className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
             >
               <ArrowLeft size={20} />
