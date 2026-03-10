@@ -86,8 +86,8 @@ const ItineraryView = () => {
   }, [showSaveToast]);
 
   const leavePlanPage = (path = "/") => {
-    clearCurrentTrip();
     navigate(path);
+    clearCurrentTrip();
     window.setTimeout(() => {
       if (window.location.pathname !== path) {
         window.location.assign(path);
@@ -347,13 +347,17 @@ const ItineraryView = () => {
                 </p>
                 <div className="mt-5 space-y-4 text-sm">
                   <div className="flex items-center justify-between rounded-2xl bg-[var(--surface)] px-4 py-3">
-                    <span className="text-[var(--text-secondary)]">Duration</span>
+                    <span className="text-[var(--text-secondary)]">
+                      Duration
+                    </span>
                     <span className="font-semibold text-[var(--text-primary)]">
                       {displayedItinerary.days.length} days
                     </span>
                   </div>
                   <div className="flex items-center justify-between rounded-2xl bg-[var(--surface)] px-4 py-3">
-                    <span className="text-[var(--text-secondary)]">Activities</span>
+                    <span className="text-[var(--text-secondary)]">
+                      Activities
+                    </span>
                     <span className="font-semibold text-[var(--text-primary)]">
                       {totalActivities} total
                     </span>
@@ -365,7 +369,9 @@ const ItineraryView = () => {
                     </span>
                   </div>
                   <div className="flex items-center justify-between rounded-2xl bg-[var(--surface)] px-4 py-3">
-                    <span className="text-[var(--text-secondary)]">Mapped Stops</span>
+                    <span className="text-[var(--text-secondary)]">
+                      Mapped Stops
+                    </span>
                     <span className="font-semibold text-[var(--accent)]">
                       {mapPlaces.length} places
                     </span>
