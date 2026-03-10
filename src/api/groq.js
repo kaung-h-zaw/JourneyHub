@@ -10,9 +10,12 @@ export const generateItinerary = async (tripData) => {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(
-        errorData.error || "Failed to build trip plan",
+
+      const err = new Error(
+        errorData.message || errorData.error || "Failed to build trip plan",
       );
+      err.status = response.status;
+      throw err;
     }
 
     return await response.json();

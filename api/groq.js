@@ -57,8 +57,7 @@ const buildPrompt = (tripData) => {
     tripData;
   const startDate = new Date(start_date);
   const endDate = new Date(end_date);
-  const numDays =
-    Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+  const numDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
   return `You are an expert travel planner. Create a detailed ${numDays}-day itinerary for ${destination}.
 
@@ -150,6 +149,16 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+
+      if (response.status === 429) {
+        json(res, 429, {
+          error: "RATE_LIMIT",
+          message:
+            "AI service is temporarily unavailable due to high usage. Please try again in a few minutes.",
+        });
+        return;
+      }
+
       json(res, response.status, {
         error: errorData.error?.message || "Failed to generate itinerary",
       });

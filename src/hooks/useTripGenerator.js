@@ -19,7 +19,16 @@ export const useTripGenerator = () => {
       return result;
     } catch (err) {
       console.error("Trip plan generation failed:", err);
-      const errorMessage = err.message || "Failed to build trip plan";
+      const isRateLimit =
+        err?.status === 429 ||
+        err?.message?.includes("429") ||
+        err?.message?.includes("RATE_LIMIT") ||
+        err?.message?.includes("Rate limit");
+
+      const errorMessage = isRateLimit
+        ? "Our AI is taking a short break due to high demand. Please wait a few minutes and try again."
+        : err.message || "Failed to build trip plan";
+
       setError(errorMessage);
       throw err;
     } finally {
