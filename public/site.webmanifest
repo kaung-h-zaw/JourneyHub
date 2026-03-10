@@ -1,0 +1,16 @@
+{
+  "name": "JourneyHub",
+  "short_name": "JourneyHub",
+  "description": "Simple travel planner with route mapping and PDF export.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#152033",
+  "theme_color": "#152033",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
