@@ -19,14 +19,13 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const isNavigatingAway = useRef(false);
-
 const ItineraryView = () => {
   const navigate = useNavigate();
   const { currentTrip, saveTrip, updateItinerary, clearCurrentTrip } =
     useTripContext();
   const { loading, error, itinerary, generate } = useTripGenerator();
   const itineraryRef = useRef();
+  const isNavigatingAway = useRef(false);
   const [showSaveToast, setShowSaveToast] = useState(false);
 
   const displayedItinerary =
