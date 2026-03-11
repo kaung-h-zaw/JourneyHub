@@ -19,6 +19,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+const isNavigatingAway = useRef(false);
+
 const ItineraryView = () => {
   const navigate = useNavigate();
   const { currentTrip, saveTrip, updateItinerary, clearCurrentTrip } =
@@ -86,16 +88,12 @@ const ItineraryView = () => {
   }, [showSaveToast]);
 
   const leavePlanPage = (path = "/") => {
+    isNavigatingAway.current = true;
     navigate(path);
     clearCurrentTrip();
-    window.setTimeout(() => {
-      if (window.location.pathname !== path) {
-        window.location.assign(path);
-      }
-    }, 80);
   };
 
-  if (!currentTrip) {
+  if (!currentTrip && !isNavigatingAway.current) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
