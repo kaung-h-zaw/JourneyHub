@@ -31,6 +31,16 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      (function () {
+        try {
+          var theme = window.localStorage.getItem("travel-theme");
+          if (theme) {
+            document.documentElement.dataset.theme = theme;
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
