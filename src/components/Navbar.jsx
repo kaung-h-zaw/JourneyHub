@@ -10,12 +10,7 @@ const Navbar = () => {
 
   const goToPage = (path) => {
     clearCurrentTrip();
-    navigate(path);
-    window.setTimeout(() => {
-      if (window.location.pathname !== path) {
-        window.location.assign(path);
-      }
-    }, 80);
+    window.location.href = path;
   };
 
   return (

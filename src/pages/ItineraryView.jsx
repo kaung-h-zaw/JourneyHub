@@ -87,9 +87,8 @@ const ItineraryView = () => {
   }, [showSaveToast]);
 
   const leavePlanPage = (path = "/") => {
-    isNavigatingAway.current = true;
     clearCurrentTrip();
-    navigate(path);
+    window.location.href = path;
   };
 
   if (!currentTrip && !isNavigatingAway.current) {
