@@ -9,8 +9,8 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   const goToPage = (path) => {
-    navigate(path);
     clearCurrentTrip();
+    navigate(path);
     window.setTimeout(() => {
       if (window.location.pathname !== path) {
         window.location.assign(path);
